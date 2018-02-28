@@ -13,7 +13,7 @@ class Message(models.Model):
 
     school = models.ForeignKey(School, on_delete=models.CASCADE)
     content = models.TextField()
-    urgent = models.BooleanField(default=False)
+    urgent = models.SmallIntegerField()
     approved = models.BooleanField(default=False)
     resolved = models.BooleanField(default=False)
 

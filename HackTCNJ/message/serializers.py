@@ -8,9 +8,9 @@ class MessageSerializer(serializers.ModelSerializer):
         model = Message
         fields = '__all__'
 
-    def create(self, school, content, urgent):
+    def create(self, school_id, content, urgent):
 
-        new = Message(school=school, content=content, urgent=urgent, approved=False)
+        new = Message(school_id=school_id, content=content, urgent=urgent, approved=False)
         new.save()
         return new
 

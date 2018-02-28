@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from .models import Student, AdminUser
-from message.models import Message
 from rest_framework.validators import UniqueValidator
 
 
@@ -23,10 +22,15 @@ class AdminSerializer(serializers.ModelSerializer):
         return True
 
     def check(self, user):
-        if AdminUser.objects.get(user.id).exist():
+        if AdminUser.objects.filter(id=user.id).exist():
             return True
         else:
             return False
+
+    def login(self, name, password):
+        if AdminUser.objects.filter(name=name, password=password).exists():
+            return True
+        return False
 
 
 class StudentSerializer(serializers.ModelSerializer):
@@ -48,6 +52,11 @@ class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
         fields = ('id', 'name', 'password')
+
+    def login(self, student_id, password):
+        if Student.objects.filter(student_id=student_id, password=password).exists():
+            return True
+        return False
 
 
 
